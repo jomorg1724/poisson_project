@@ -1,0 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+FILE *fp;
+int myInt = 5;
+fp = fopen("Output.txt", "w");// "w" means that we are going to write on this file
+fprintf(fp, "This is being written in the file. This is an int variable: %d", myInt);

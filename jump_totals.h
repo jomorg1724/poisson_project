@@ -1,4 +1,4 @@
 #ifndef WHATEVER_H_INCLUDED
 #define WHATEVER_H_INCLUDED
-int * list_jumptotals();
+int * list_jumptotals(char *argv[]);
 #endif

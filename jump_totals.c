@@ -3,10 +3,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-int * list_jumptotals()
+int * list_jumptotals(char *argv[])
 {
     srand((unsigned int)time(NULL));
 
+    int option = atoi(argv[1]);
     int i;
     int j;
     float t;
@@ -14,7 +15,9 @@ int * list_jumptotals()
     int jump_path;
     float h;
     static int jump_totals_array[1000];
-    /*int loop;*/
+    static float time_of_jump[100];
+    static int jump_total_at_time[100];
+    int loop;
 
     /*a = atof(argv[1]);*/
     t = 1.0;
@@ -35,6 +38,8 @@ int * list_jumptotals()
 	    if( rand_samp < h ) {
 	      jump_path++;
 	    }
+	    time_of_jump[i] = (float)i*h;
+	    jump_total_at_time[i] = jump_path;
 	}
 
 	/* Append the jump total for each trajectory to an array */
@@ -43,7 +48,11 @@ int * list_jumptotals()
     /*printf("%f\n", (float) jump_path/j);*/
 
     /* A for loop to print the list out, will need to direct this to output file */
-    /*for(loop = 0; loop < j; loop++)
-      printf("%d ", jump_totals_array[loop]);*/
+    if( option == 1 ) {
+      for(loop = 0; loop < 100; loop++) {
+	printf("%f \t %d \n", time_of_jump[loop],jump_total_at_time[loop]);
+      }
+    }
+
     return jump_totals_array;
 }
