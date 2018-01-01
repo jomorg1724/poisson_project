@@ -1,0 +1,11 @@
+#include "jump_totals.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv)
+{
+  list_jumptotals;
+  for(loop = 0; loop < j; loop++)
+  printf("%d ", jump_totals_array[loop]);
+  return 0;
+}

@@ -1,0 +1,11 @@
+maketest: maketest.o usemakeheaders.o
+	gcc usemakeheaders.o maketest.o -o maketest
+
+maketest.o: maketest.c maketest.h
+	gcc -c maketest.c -o maketest.o
+
+usemakeheaders.o: usemakeheaders.c maketest.h
+	gcc -c usemakeheaders.c -o usemakeheaders.o
+.PHONY: clean
+clean:
+	sudo rm -f usemakeheaders *.o *.c~ *.h~
