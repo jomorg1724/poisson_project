@@ -6,7 +6,7 @@
 int * list_jumptotals(char *argv[])
 {
     srand((unsigned int)time(NULL));
-
+    /* "option" is the user input that decides whether to track single trajectory or multiple*/
     int option = atoi(argv[1]);
     int i;
     int j;
@@ -47,7 +47,7 @@ int * list_jumptotals(char *argv[])
     }
     /*printf("%f\n", (float) jump_path/j);*/
 
-    /* A for loop to print the list out, will need to direct this to output file */
+    /* A for loop to print the output of a single trajectory, will need to direct this to output file */
     if( option == 1 ) {
       for(loop = 0; loop < 100; loop++) {
 	printf("%f \t %d \n", time_of_jump[loop],jump_total_at_time[loop]);
