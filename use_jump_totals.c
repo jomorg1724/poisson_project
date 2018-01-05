@@ -62,8 +62,21 @@ int main(int argc, char *argv[])
   j = 1000;
 
   if ( option == 0 ) {
-    for(loop = 0; loop < j; loop++)
+    for(loop = 0; loop < j; loop++) {
       printf("%d", jumptotals[loop]);
+    }
+
+    /*Cannot use this easily in gnuplot, use column method. This works well for C scripts though*/
+    FILE *f = fopen("client.data", "wb");
+    fwrite(jumptotals, sizeof(int), sizeof(jumptotals), f);
+    fclose(f);
+    printf("\n");
   }
+
+    /*FILE *ifp = fopen("client.data", "rb"); fread(jumptotals, sizeof(int), sizeof(jumptotals), ifp);
+    for(loop = 0; loop < j; loop++)
+    printf("%d", jumptotals[loop]);
+    }*/
+
   return 0;
 }
