@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <math.h>
+
+int main(int argc, char *argv[])
+{
+  double prob_exp;
+  double prob_theory;
+  double k;
+
+  int long long factorial_fun(int  n)
+  {
+    int i;
+    unsigned long long factorial;
+
+    factorial = 1;
+   
+    for(i=1; i<=n; ++i)
+      {
+            factorial *= i;              // factorial = factorial*i;
+      }
+        printf("Factorial of %d = %llu", n, factorial);
+    }
+
+    return 0;
+  }
+
+prob_theory = 1.0 / ( exp(-1.0) * (double) factorial( k ) )

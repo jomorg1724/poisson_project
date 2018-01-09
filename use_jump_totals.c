@@ -58,25 +58,22 @@ int main(int argc, char *argv[])
   int j;
   int *jumptotals;
 
+  /* Build the jumptotals array from previous function */
   jumptotals = list_jumptotals(argv);
   j = 1000;
 
+  /* If user gives the correct option, print the array of trajectory jump totals to a file */
   if ( option == 0 ) {
-    for(loop = 0; loop < j; loop++) {
-      printf("%d", jumptotals[loop]);
+
+    FILE *f = fopen("experimental_output.txt", "wb");
+
+    for(loop = 0; loop < 1000; loop++) {
+      fprintf(f,"%d ", jumptotals[loop]);
     }
 
-    /*Cannot use this easily in gnuplot, use column method. This works well for C scripts though*/
-    FILE *f = fopen("client.data", "wb");
-    fwrite(jumptotals, sizeof(int), sizeof(jumptotals), f);
     fclose(f);
-    printf("\n");
   }
 
-    /*FILE *ifp = fopen("client.data", "rb"); fread(jumptotals, sizeof(int), sizeof(jumptotals), ifp);
-    for(loop = 0; loop < j; loop++)
-    printf("%d", jumptotals[loop]);
-    }*/
 
   return 0;
 }

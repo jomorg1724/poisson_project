@@ -53,7 +53,7 @@ int * list_jumptotals(char *argv[])
       /*  for(loop = 0; loop < 100; loop++) {
 	printf("%f \t %d \n", time_of_jump[loop],jump_total_at_time[loop]);
 	}*/
-      FILE *f = fopen("client.txt", "wb");
+      FILE *f = fopen("single_traj.txt", "wb");
       for(loop = 0; loop < 100; loop++) {
 	fprintf(f,"%f \t %d \n", time_of_jump[loop],jump_total_at_time[loop]);
       }
