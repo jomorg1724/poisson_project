@@ -2,9 +2,46 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <math.h>
+#include <stdbool.h>
 
 int main(int argc, char *argv[])
 {
+
+ bool isNumber(char number[])
+  {
+    int i = 0;
+
+    /*checking for negative numbers*/
+    if (number[0] == '-')
+        i = 1;
+    for (; number[i] != 0; i++)
+      {
+        /*if (number[i] > '9' || number[i] < '0')*/
+        if (!isdigit(number[i]))
+	  return false;
+      }
+    return true;
+  }
+
+  /* Tests whether user only gave exacly one input with function call */
+  if( argc != 2) {
+    fprintf(stderr, "Number of arguments check_dist takes is precisely 1\n");
+    exit(-1);
+  }
+
+  /* Check if user input is a number */
+  if ( isNumber(argv[1]) ) {
+  }
+  else {
+    printf("Must enter a positive integer value.\n");
+    exit(-1);
+  }
+
+  /* Tests whether user input was greater than 0 */
+  if(atoi(argv[1]) < 0) {
+    printf("Must enter a nonnegative valued integer for k");
+    exit(-1);
+  }
 
   int loop;
   FILE *myFile;
@@ -28,7 +65,7 @@ int main(int argc, char *argv[])
   int k;
   int total_jump_equalk;
   total_jump_equalk = 0;
-  k = 2;
+  k = atoi(argv[1]);
 
   /* Find all trajectories with jump total equal to k */
   /* If the jump total is equal to k, increment a count by 1 */

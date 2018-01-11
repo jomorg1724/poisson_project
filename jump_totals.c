@@ -11,18 +11,21 @@ int * list_jumptotals(char *argv[])
     int option = atoi(argv[1]);
     int i;
     int j;
-    float t;
     double rand_samp;
     int jump_path;
     float h;
-    static int jump_totals_array[1000];
-    static float time_of_jump[100];
-    static int jump_total_at_time[100];
-    int loop; 
 
-    /*a = atof(argv[1]);*/
-    t = 1.0;
+    int t = atoi(argv[2]);
+    static int jump_totals_array[1000];
+    static float *time_of_jump;
+    static int *jump_total_at_time;
+    time_of_jump = malloc(t * 100 * sizeof(float));
+    jump_total_at_time = malloc(t * 100 * sizeof(int));
+    int loop; 
+    int endloop;
+
     h = .01;
+    endloop = 100 * t;
 
     /* This is the number of Trajectories */
     for (j=0;j<1000;j++) {
@@ -30,10 +33,10 @@ int * list_jumptotals(char *argv[])
       jump_path = 0;
 
       /* This is the movement along a single trajectory */
-        for (i=0;i<100;i++) {
+        for (i=0;i < endloop;i++) {
 
 	  /* This takes the random sample at the i'th segment of a trajectory */
-	  rand_samp = ((float)rand()) / (((float)(RAND_MAX))) * t;
+	  rand_samp = ((float)rand()) / (((float)(RAND_MAX))) * (float) t;
 
 	    /* This tests the sample. If sample less than h, add one to the collection of jumps for the current trajectory */
 	    if( rand_samp < h ) {
@@ -54,7 +57,7 @@ int * list_jumptotals(char *argv[])
 	printf("%f \t %d \n", time_of_jump[loop],jump_total_at_time[loop]);
 	}*/
       FILE *f = fopen("single_traj.txt", "wb");
-      for(loop = 0; loop < 100; loop++) {
+      for(loop = 0; loop < endloop; loop++) {
 	fprintf(f,"%f \t %d \n", time_of_jump[loop],jump_total_at_time[loop]);
       }
       fclose(f);

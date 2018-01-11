@@ -39,10 +39,10 @@ int main(int argc, char *argv[])
 
 
   /* Tests whether user only gave exacly one input with function call */
-  if( argc != 2) {
+  /* if( argc != 2) {
     fprintf(stderr, "Number of arguments jump_totals takes is precisely 1\n");
     exit(-1);
-  }
+    }*/
 
 
   /* Tests whether user input was 1 or 0 */
