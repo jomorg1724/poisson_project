@@ -36,7 +36,7 @@ int * list_jumptotals(char *argv[])
         for (i=0;i < endloop;i++) {
 
 	  /* This takes the random sample at the i'th segment of a trajectory */
-	  rand_samp = ((float)rand()) / (((float)(RAND_MAX))) * (float) t;
+	  rand_samp = ((float)rand()) / (((float)(RAND_MAX)));
 
 	    /* This tests the sample. If sample less than h, add one to the collection of jumps for the current trajectory */
 	    if( rand_samp < h ) {
