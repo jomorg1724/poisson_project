@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
   prob_theory = 1.0 / ( exp(1.0) * (double) factorial_fun( k ) );
 
   printf("The theoretical probability for finding a trajectory with %d jumps is %f\n", k, prob_theory);
-
+  printf("The error is %f\n", fabs(prob_theory -((float) total_jump_equalk / 1000))); 
   return 0;
 
 }

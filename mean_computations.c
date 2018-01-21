@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
   FILE *myFile;
   int jump_totals[1000];
   float mean_list[100];
+  /* int mean_list_at_interval[100];*/
   char buf[32];
 
   for (i = 1; i < 101; i++) {
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
     sprintf(buf, "./jump_totals 0 %d", i);
     system(buf);
 
-    /* jump_total called with 0 outputs a text file*/
+    /* jump_total called with 0; outputs a text file*/
     /* text file contains a 1000 different trajectory jump counts*/
     /* jump counts are all calculated using i as endpoint*/
     myFile = fopen("experimental_output.txt", "r");
@@ -49,8 +50,9 @@ int main(int argc, char *argv[])
   /* output the list of means to a file */
   FILE *f = fopen("mean_list_output.txt", "wb");
 
-  for(loop = 0; loop < 100; loop++) {
-    fprintf(f,"%f ", mean_list[loop]);
+  for(loop = 1; loop < 101; loop++) {
+    /* fprintf(f,"%f ", mean_list[loop]);*/
+    fprintf(f,"%d \t %f \n", loop, mean_list[loop]);
   }
 
   fclose(f);

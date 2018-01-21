@@ -1,0 +1,94 @@
+\documentclass{article}
+\usepackage{blindtext}
+\title{Poisson Process: Confirmation of the Mean and Distribution via Simulation}
+\date{2018\\ January}
+\author{Jonathan Morgan\\ Department of Mathematics}
+\usepackage{setspace}
+\doublespacing
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+\section{Verify the Poisson Distribution \newline}
+
+A Poisson process of intensity, or rate, $\lambda > 0$ is an integer valued stochastic process $\{X(t); t\geq0\}$ for which
+
+
+\begin{tabbing}
+
+$(i)$ \= for \= any time points $t_{0}= 0 < t_{1} < \cdots < t_{n}$, the process increments\newline \\
+
+\> \> \= $X(t_{1}) - X(t_{0}), X(t_{2}) - X(t_{1}), \ldots , X(t_{n}) - X(t_{n - 1})$ \\ \newline
+\> are independent random variables; \\ \newline
+
+$(ii)$ for $s \geq 0$ and $t > 0$, the random variable $X(s+t) - X(s)$ has the \\
+\> Poisson distribution \\ 
+\> \> $Pr\{X(s + t) - X(s) = k\} = \frac{(\lambda t)^{k} e^{-\lambda t}}{k!} |$ for $ k = 0, 1, \ldots;$ \\ \newline
+
+$(iii)$ $X(0) = 0.$
+\end{tabbing}
+
+The interval for each simulation is $[0,T]$, where $T\in \mathbb{N}$ and is a user input parameter. For simplicity, $T = 1$ was hardcoded to verify that the simulation has a Poisson distribution.\newline
+\indent Let $s$ be a uniform random variable on $[0,1]$, let $X$ be an integer valued stochastic process $\{X(t); t\geq0\}$, and let $h$ be a forward-step along the interval $[0,T] = [0,1]$, such that $h = 0.01$. Hence, the process increments \newline $X(t_{0} + h) - X(t_{0}), X(t_{0} + 2h) - X(t_{0} + h), \ldots,X(t_{0} + nh) - X(t_{0} + (n-1)h)  $, where $n=100$. If $s$ is sampled on each increment, and if $X(t)$ is given the property
+\[ X(t) = \begin{cases} 
+      1 & s < h \\
+      0 & s\geq h 
+   \end{cases}
+,\]
+ then, by construction, property $(i)$ is satisfied. By extending the properties of $X$ and restricting $X(0) = 0$, then $(iii)$ is also satisfied. Thus, the only property in which the simulation must verify is $(ii)$.\newpage
+\indent Each trajectory in the simulation has the structure:
+\begin{tabbing}
+$X = 0$; \\
+for \= $(i = 0; i < n; i++)$ $ \{$\\
+\> sample $s$;\\
+\> if \=$(s < h)$ \{ \\ 
+\> \> $X = X + 1$; \\
+\>  \} \\
+\} 
+\end{tabbing}
+
+\noindent Hence, we see that the variable X (in the program above) is the total amount of jumps along a trajectory. To verify $(ii)$, it is convenient to run the program above through multiple iterations. Each trajectory's jump total, X, must then be collected and stored for further analysis. To accomplish this, the program above is modified such that:
+\begin{tabbing}
+$jump\_totals = [$ $]$; \\
+for \= $(j = 0; j < N; j++)$ $ \{$\\
+\> $X = 0$; \\
+\> for \= $(i = 0; i < n; i++)$ $ \{$\\
+\> \> sample $s$;\\
+\> \> if \=$(s < h)$ \{ \\ 
+\> \> \> $X = X + 1$; \\
+\>  \> \} \\
+\> $jump\_totals[j] = X$;\\
+\}
+\end{tabbing}
+
+\noindent Hence, we see that $jump\_totals$ is an array of $N$ trajectory jump totals. It takes the form\newline
+\centerline{$jump\_totals = [X_{1}, X_{2}, \ldots, X_{N}],$}\newline
+where $X_{i}$ is the jump total for trajectory $i$.\pagebreak
+
+\indent With the construction of the jump totals array, it is now possible to check the distribution of the values for $X_{i}$. To accomplish this, the described simulation above was ran with the parameters \newline
+\centerline{$h = 0.01$}\newline
+\centerline{$n = 100$}\newline
+\centerline{$N = 1000$.}\newline
+\centerline{$\lambda = 1$}\newline
+
+\noindent In order to check the distribution of a specific jump total value, k, it is necessary to loop through the list of jump totals and count the number of occurrences where $X_{i} = k$. Then, divide the number of occurrences by the total number of simulations to get $Pr_{exp}\{X(1) - X(0) = k\} $, the experimental probability that $X = k$.    The program to check the distribution takes the form:
+\begin{tabbing}
+$k_{count} = 0$;\\
+for \= $(j = 0;j<1000;j++)$ \{ \\
+\> if \= ($jump\_totals[j] = k) $ \{\\
+\> \> $ k_{count} = k_{count} + 1$;\\
+\> \}\\
+\} \\
+$Pr_{exp}\{X(1) - X(0) = k \} = \frac{k_{count}}{1000}$;\\
+$Pr_{th}\{X(1) - X(0) = k \} $ \=$=  \frac{(\lambda t)^{k} e^{-\lambda t}}{k!}$\\
+\>  $=\frac{(1)^{k} e^{-(1)}}{k!}$ \\
+$error = |Pr_{exp} - Pr_{th}|$
+\end{tabbing}
+\noindent In the above, k is a user input variable. Hence, the program is called with an integer value. The program returns three values, $Pr_{exp},Pr_{th}, error$.
+
+
+
+\end{document}
